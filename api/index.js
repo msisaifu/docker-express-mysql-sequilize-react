@@ -37,3 +37,5 @@ app.use(errorConverter);
 app.use(errorHandler);
 
 app.listen(port, () => console.log("listining on port ", port));
+
+module.exports = app;
