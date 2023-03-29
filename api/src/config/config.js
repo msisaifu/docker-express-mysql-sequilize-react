@@ -25,6 +25,13 @@ if (error) {
 module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
+  jwt: {
+    secret: process.env.JWT_SECRET || "1234",
+    accessTokenLifetime: process.env.JWT_ACCESS_TOKEN_LIFETIME || "60m",
+    refreshTokenLifetime: process.env.JWT_REFRESH_TOKEN_LIFETIME || "10500m",
+    accessTokenType: "access_token",
+    refreshTokenType: "refresh_token",
+  },
   development: {
     username: process.env.MYSQL_USER || "docker",
     password: process.env.MYSQL_PASSWORD || "docker",
