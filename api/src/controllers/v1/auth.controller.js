@@ -8,6 +8,11 @@ const loginUser = catchAsync(async (req, res) => {
   res.send({ user, token });
 });
 
+const authetication = catchAsync(async (req, res) => {
+  res.send({ message: "passed authentication" });
+});
+
 module.exports = {
   loginUser,
+  authetication,
 };

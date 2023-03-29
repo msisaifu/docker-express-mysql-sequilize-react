@@ -64,6 +64,27 @@ const saveToken = async (access_token, refresh_token, user_id) => {
   });
 };
 
+/**
+ * check active token
+ * @param {string} access_token
+ * @returns {Object <Token>}
+ */
+const isTokenActive = async (access_token) => {
+  const token = await Token.findOne({
+    where: {
+      [Op.and]: [{ access_token }, { active: 1 }],
+    },
+  });
+  if (!token) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "Token expired please log in again"
+    );
+  }
+  return token;
+};
+
 module.exports = {
   generateAuthTokens,
+  isTokenActive,
 };
