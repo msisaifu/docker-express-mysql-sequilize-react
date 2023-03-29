@@ -8,7 +8,15 @@ const loginUser = {
     })
     .options({ allowUnknown: true }),
 };
+const refreshToken = {
+  body: Joi.object()
+    .keys({
+      refresh_token: Joi.string().required(),
+    })
+    .options({ allowUnknown: true }),
+};
 
 module.exports = {
   loginUser,
+  refreshToken,
 };

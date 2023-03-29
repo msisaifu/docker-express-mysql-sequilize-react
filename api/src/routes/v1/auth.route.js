@@ -14,4 +14,8 @@ router
   .route("/authentication")
   .get(authenticated(["A"]), authController.authetication);
 
+router
+  .route("/refresh_token")
+  .post(validate(authValidation.refreshToken), authController.refreshToken);
+
 module.exports = router;

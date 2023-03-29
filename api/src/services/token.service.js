@@ -26,7 +26,7 @@ const generateToken = (user, expires, type, secret = config.jwt.secret) => {
 /**
  * Generate auth tokens
  * @param {User} user
- * @returns {<Object>} {access_token, refresh_token}
+ * @returns {Object} {access_token, refresh_token}
  */
 const generateAuthTokens = async (user) => {
   const { id, role } = user;
@@ -67,7 +67,7 @@ const saveToken = async (access_token, refresh_token, user_id) => {
 /**
  * check active token
  * @param {string} access_token
- * @returns {Object <Token>}
+ * @returns {Object} token
  */
 const isTokenActive = async (access_token) => {
   const token = await Token.findOne({
@@ -84,7 +84,44 @@ const isTokenActive = async (access_token) => {
   return token;
 };
 
+/**
+ * Regenarate token
+ * @param {Object} payload {access_token, refresh_token}
+ * @returns {Promise<User>}
+ */
+const verifyRefreshToken = async (payload) => {
+  let { access_token, refresh_token } = payload;
+  const token = await Token.update(
+    { active: 0 },
+    {
+      where: {
+        [Op.and]: [{ access_token }, { refresh_token }, { active: 1 }],
+      },
+    }
+  );
+  if (!token) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "Token expired please log in again"
+    );
+  }
+
+  try {
+    const decoded = jwt.verify(refresh_token, config.jwt.secret);
+    const { user } = decoded;
+
+    const newToken = await generateAuthTokens(user);
+    return newToken;
+  } catch (error) {
+    throw new ApiError(
+      httpStatus.UNAUTHORIZED,
+      "Token expired please log in again"
+    );
+  }
+};
+
 module.exports = {
   generateAuthTokens,
   isTokenActive,
+  verifyRefreshToken,
 };
