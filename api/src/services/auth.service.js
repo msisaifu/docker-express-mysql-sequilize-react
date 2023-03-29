@@ -17,8 +17,8 @@ const loginUser = async (payload) => {
   }
 
   await isPasswordMatch(password, user.password);
-  let { id, email, userName, role, firstName, lastName } = user;
-  return { id, email, userName, role, firstName, lastName };
+  let { id, email, username, role, first_name, last_name } = user;
+  return { id, email, username, role, first_name, last_name };
 };
 
 /**
@@ -35,8 +35,8 @@ const getUserByEmailOrUsername = async (login) => {
 };
 
 const isPasswordMatch = async (password, hash) => {
-  let res = await bcrypt.compare(password, hash);
-  if (!res) {
+  let match = await bcrypt.compare(password, hash);
+  if (!match) {
     throw new ApiError(
       httpStatus.UNAUTHORIZED,
       "Incorrect username or password"
