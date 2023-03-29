@@ -19,6 +19,9 @@ describe("Auth routes", () => {
   });
 
   describe("POST /v1/auth", () => {
+    // beforeEach(async () => await new Promise((r) => setTimeout(r, 500)));
+    afterEach(async () => await new Promise((r) => setTimeout(r, 500)));
+
     test("login by username and should return 200 and return user and token information", async () => {
       const res = await request(app)
         .post("/v1/auth")

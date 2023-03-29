@@ -12,6 +12,9 @@ describe("User routes", () => {
   });
 
   describe("POST /v1/users", () => {
+    // beforeEach(async () => await new Promise((r) => setTimeout(r, 500)));
+    afterEach(async () => await new Promise((r) => setTimeout(r, 500)));
+
     test("should return 201 and successfully create new user if data is ok", async () => {
       const res = await request(app)
         .post("/v1/users")
