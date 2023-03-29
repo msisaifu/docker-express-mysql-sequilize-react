@@ -5,7 +5,7 @@ const { User } = require("../models");
 const ApiError = require("../utils/ApiError");
 
 /**
- * Create a user
+ * Login user
  * @param {Object} userBody
  * @returns {Promise<User>}
  */
@@ -22,8 +22,8 @@ const loginUser = async (payload) => {
 };
 
 /**
- * Get user by id
- * @param {ObjectId} id
+ * Get user by credential
+ * @param {Object} userBody
  * @returns {Promise<User>}
  */
 const getUserByEmailOrUsername = async (login) => {
