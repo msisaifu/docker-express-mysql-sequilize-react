@@ -50,6 +50,7 @@ module.exports = {
     host: process.env.MYSQL_HOST || "db",
     port: 3306,
     dialect: "mysql",
+    logging: false,
     dialectOptions: {
       bigNumberStrings: true,
     },
