@@ -6,6 +6,8 @@ const { userOne, userPassConflict } = require("../fixtures/user.fixture");
 
 const { User } = db;
 
+afterAll(async () => await new Promise((r) => setTimeout(r, 1000)));
+
 describe("User routes", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });

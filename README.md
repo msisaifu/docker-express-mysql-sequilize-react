@@ -28,3 +28,6 @@ To create a new migration, run the following command:
 
 To test the API, use the following command:
 `docker compose run -e NODE_ENV=test api npm run test`
+
+For the token testing:
+`docker compose run -e NODE_ENV=test -e KEEP_TOKEN_TESTING=true -e JWT_ACCESS_TOKEN_LIFETIME=5s -e JWT_REFRESH_TOKEN_LIFETIME=8s api npm run test`

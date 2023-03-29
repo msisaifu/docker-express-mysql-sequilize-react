@@ -10,6 +10,8 @@ const {
   wrongLoginCredential,
 } = require("../fixtures/auth.fixture");
 
+afterAll(async () => await new Promise((r) => setTimeout(r, 1000)));
+
 describe("Auth routes", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
@@ -18,6 +20,7 @@ describe("Auth routes", () => {
 
   describe("POST /v1/auth", () => {
     afterEach(async () => await new Promise((r) => setTimeout(r, 500)));
+    afterAll(async () => await new Promise((r) => setTimeout(r, 1000)));
 
     test("Test logging in with a username, expecting a successful response (status code 200) and receiving user and token information.", async () => {
       const res = await request(app)
@@ -85,42 +88,45 @@ describe("Auth routes", () => {
         .expect(httpStatus.OK);
     });
 
-    test("Test attempting to access a protected route with an expired access token, expecting a response with a '419 Authentication Timeout' status code.", async () => {
-      await new Promise((r) => setTimeout(r, 5000));
-      await request(app)
-        .get("/v1/auth/authentication")
-        .set("Authorization", `Bearer ${access_token}`)
-        .send()
-        .expect(419);
-    }, 6000);
+    // This test should be run if KEEP_TOKEN_TESTING=true
+    if (process.env.KEEP_TOKEN_TESTING) {
+      test("Test attempting to access a protected route with an expired access token, expecting a response with a '419 Authentication Timeout' status code.", async () => {
+        await new Promise((r) => setTimeout(r, 5000));
+        await request(app)
+          .get("/v1/auth/authentication")
+          .set("Authorization", `Bearer ${access_token}`)
+          .send()
+          .expect(419);
+      }, 6000);
 
-    test("Test implementing a functionality to generate a new access token using a refresh token, expecting a successful response (status code 200).", async () => {
-      const res = await request(app)
-        .post("/v1/auth/refresh_token")
-        .set("Authorization", `Bearer ${access_token}`)
-        .send({ refresh_token })
-        .expect(httpStatus.OK);
+      test("Test implementing a functionality to generate a new access token using a refresh token, expecting a successful response (status code 200).", async () => {
+        const res = await request(app)
+          .post("/v1/auth/refresh_token")
+          .set("Authorization", `Bearer ${access_token}`)
+          .send({ refresh_token })
+          .expect(httpStatus.OK);
 
-      previous_token = access_token;
-      access_token = res.body.token.access_token;
-      refresh_token = res.body.token.refresh_token;
-    });
+        previous_token = access_token;
+        access_token = res.body.token.access_token;
+        refresh_token = res.body.token.refresh_token;
+      });
 
-    test("Test accessing a protected route using a new access token, expecting a successful response (status code 200).", async () => {
-      await request(app)
-        .get("/v1/auth/authentication")
-        .set("Authorization", `Bearer ${access_token}`)
-        .send()
-        .expect(httpStatus.OK);
-    });
+      test("Test accessing a protected route using a new access token, expecting a successful response (status code 200).", async () => {
+        await request(app)
+          .get("/v1/auth/authentication")
+          .set("Authorization", `Bearer ${access_token}`)
+          .send()
+          .expect(httpStatus.OK);
+      });
 
-    test("Test attempting to access a protected route with a previous token, expecting a response with an 'Unauthorized' status code (401).", async () => {
-      await request(app)
-        .get("/v1/auth/authentication")
-        .set("Authorization", `Bearer ${previous_token}`)
-        .send()
-        .expect(httpStatus.UNAUTHORIZED);
-    });
+      test("Test attempting to access a protected route with a previous token, expecting a response with an 'Unauthorized' status code (401).", async () => {
+        await request(app)
+          .get("/v1/auth/authentication")
+          .set("Authorization", `Bearer ${previous_token}`)
+          .send()
+          .expect(httpStatus.UNAUTHORIZED);
+      });
+    }
   });
 
   afterAll(async () => {
