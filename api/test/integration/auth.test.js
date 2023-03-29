@@ -17,7 +17,6 @@ describe("Auth routes", () => {
   });
 
   describe("POST /v1/auth", () => {
-    // beforeEach(async () => await new Promise((r) => setTimeout(r, 500)));
     afterEach(async () => await new Promise((r) => setTimeout(r, 500)));
 
     test("login by username and should return 200 and return user and token information", async () => {
@@ -62,6 +61,46 @@ describe("Auth routes", () => {
         .send(wrongLoginCredential)
         .expect(httpStatus.NOT_FOUND);
     });
+  });
+
+  describe("GET /v1/auth/authentication", () => {
+    let access_token;
+
+    beforeAll(async () => {
+      const login = await request(app)
+        .post("/v1/auth")
+        .send(loginByUsername)
+        .expect(httpStatus.OK);
+      access_token = login.body.token.access_token;
+    });
+
+    afterEach(async () => await new Promise((r) => setTimeout(r, 500)));
+
+    test(" access to a protected route by including an authorization header in the request and should return 200", async () => {
+      await request(app)
+        .get("/v1/auth/authentication")
+        .set("Authorization", `Bearer ${access_token}`)
+        .send()
+        .expect(httpStatus.OK);
+    });
+
+    test("Test that attempting to access a protected route with an expired access token results and should return 419", async () => {
+      await new Promise((r) => setTimeout(r, 5000));
+      await request(app)
+        .get("/v1/auth/authentication")
+        .set("Authorization", `Bearer ${access_token}`)
+        .send()
+        .expect(419);
+    }, 6000);
+
+    // test("Implement a functionality to generate a new access token by using a refresh token. and should return ", async () => {
+    //   await new Promise((r) => setTimeout(r, 5000));
+    //   await request(app)
+    //     .get("/v1/auth/authentication")
+    //     .set("Authorization", `Bearer ${access_token}`)
+    //     .send()
+    //     .expect(419);
+    // }, 6000);
   });
 
   afterAll(async () => {
