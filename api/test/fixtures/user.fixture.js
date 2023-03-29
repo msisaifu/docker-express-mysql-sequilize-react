@@ -6,7 +6,16 @@ const userOne = {
   confirm_password: "123",
   role: "A",
 };
+const userPassConflict = {
+  first_name: "User 2",
+  username: "user2",
+  email: "user2@gmail.com",
+  password: "123",
+  confirm_password: "1234",
+  role: "A",
+};
 
 module.exports = {
   userOne,
+  userPassConflict,
 };

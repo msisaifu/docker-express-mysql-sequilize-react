@@ -2,7 +2,7 @@ const request = require("supertest");
 const httpStatus = require("http-status");
 const app = require("../../index.js");
 const db = require("../../src/models");
-const { userOne } = require("../fixtures/user.fixture");
+const { userOne, userPassConflict } = require("../fixtures/user.fixture");
 
 const { User } = db;
 
@@ -28,6 +28,24 @@ describe("User routes", () => {
         createdAt: expect.anything(),
         updatedAt: expect.anything(),
       });
+    });
+
+    test("should return 400 and message should be confirm password does not match", async () => {
+      const res = await request(app)
+        .post("/v1/users")
+        .send(userPassConflict)
+        .expect(httpStatus.BAD_REQUEST);
+
+      expect(res.body.message).toBe("confirm password does not match");
+    });
+
+    test("should return 409 and message should be email or username already exist", async () => {
+      const res = await request(app)
+        .post("/v1/users")
+        .send(userOne)
+        .expect(httpStatus.CONFLICT);
+
+      expect(res.body.message).toBe("email or username already exist");
     });
   });
 

@@ -11,7 +11,9 @@ const createUser = {
         .equal(Joi.ref("password"))
         .required()
         .label("Confirm password")
-        .options({ messages: { "any.only": "{{#label}} does not match" } }),
+        .options({
+          messages: { "any.only": "confirm password does not match" },
+        }),
       username: Joi.string().required(),
       role: Joi.string().required().valid("A"),
     })
