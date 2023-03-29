@@ -12,15 +12,19 @@ const authenticated = (roles) => async (req, res, next) => {
         msg: "Token not found",
       });
     }
+    const tokenActive = await tokenService.isTokenActive(token);
+    if (!tokenActive) {
+      return res.status(401).json({ success: false, msg: "Unauthorised" });
+    }
+
     const decoded = jwt.verify(token, config.jwt.secret);
     const {
       user: { role },
     } = decoded;
 
-    let tokenActive = await tokenService.isTokenActive(token);
     let canAccess = roles && roles.includes(role);
 
-    if (!tokenActive || !canAccess) {
+    if (!canAccess) {
       return res.status(401).json({ success: false, msg: "Unauthorised" });
     }
     next();
