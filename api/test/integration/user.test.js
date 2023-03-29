@@ -22,6 +22,7 @@ describe("User routes", () => {
       expect(res.body).toEqual({
         id: expect.anything(),
         first_name: userOne.first_name,
+        last_name: userOne.last_name,
         username: userOne.username,
         email: userOne.email,
         role: userOne.role,

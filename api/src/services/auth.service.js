@@ -29,7 +29,7 @@ const loginUser = async (payload) => {
 const getUserByEmailOrUsername = async (login) => {
   return User.findOne({
     where: {
-      [Op.or]: [{ userName: login }, { email: login }],
+      [Op.or]: [{ username: login }, { email: login }],
     },
   });
 };
@@ -37,10 +37,7 @@ const getUserByEmailOrUsername = async (login) => {
 const isPasswordMatch = async (password, hash) => {
   let match = await bcrypt.compare(password, hash);
   if (!match) {
-    throw new ApiError(
-      httpStatus.UNAUTHORIZED,
-      "Incorrect username or password"
-    );
+    throw new ApiError(httpStatus.NOT_FOUND, "Incorrect username or password");
   }
 };
 
