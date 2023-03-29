@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon -L index.js",
+    "migrate:up": "cd src && npx sequelize-cli db:migrate",
+    "migrate:undo": "cd src && npx sequelize-cli db:migrate:undo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
