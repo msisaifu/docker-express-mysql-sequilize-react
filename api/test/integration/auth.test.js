@@ -10,12 +10,10 @@ const {
   wrongLoginCredential,
 } = require("../fixtures/auth.fixture");
 
-const { User } = db;
-
 describe("Auth routes", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
-    let user = await userService.createUser(userOne);
+    await userService.createUser(userOne);
   });
 
   describe("POST /v1/auth", () => {
@@ -59,7 +57,7 @@ describe("Auth routes", () => {
       });
     });
     test("wrong credentials and should return 404", async () => {
-      const res = await request(app)
+      await request(app)
         .post("/v1/auth")
         .send(wrongLoginCredential)
         .expect(httpStatus.NOT_FOUND);
