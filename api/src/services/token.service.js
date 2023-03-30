@@ -78,7 +78,7 @@ const isTokenActive = async (access_token) => {
   if (!token) {
     throw new ApiError(
       httpStatus.UNAUTHORIZED,
-      "Token expired please log in again"
+      "Unauthorized: Please provide valid authentication credentials."
     );
   }
   return token;
