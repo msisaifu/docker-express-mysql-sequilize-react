@@ -10,18 +10,20 @@ To execute the API shell, use the following command:
 ### Migration generation
 
 To create a new migration, run the following command:
-`npx sequelize-cli model:generate --name {ModelName} --attributes {field_name}:string`
+`docker exec -it todo-api sh`
+`cd src`
+`npx sequelize-cli model:generate --name {ModelName} --attributes {field_name1}:string,{field_name2}:string`
 
 ###Alter Migrations
-
-`npx sequelize-cli migration:generate --name migration-skeleton`
+`docker exec -it todo-api sh`
+`npm run migration:generate`
 
 ###Running Migrations
-
+`docker exec -it todo-api sh`
 `npm run migrate:up`
 
 ###Rollback Migrations
-
+`docker exec -it todo-api sh`
 `npm run migrate:undo`
 
 ## Api testing
