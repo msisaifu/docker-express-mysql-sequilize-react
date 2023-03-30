@@ -36,4 +36,16 @@ const authenticated = (roles) => async (req, res, next) => {
   }
 };
 
-module.exports = { authenticated };
+const setAuthInfo = (req, res, next) => {
+  try {
+    let token = authorizationKey(req);
+    const decoded = jwt.verify(token, config.jwt.secret);
+    if (decoded && token) {
+      const { user } = decoded;
+      req.IDENTITY = user;
+    }
+  } catch (error) {}
+  next();
+};
+
+module.exports = { authenticated, setAuthInfo };

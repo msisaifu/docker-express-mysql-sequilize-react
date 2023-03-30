@@ -6,6 +6,7 @@ const morgan = require("./src/config/morgan");
 const config = require("./src/config/config");
 const ApiError = require("./src/utils/ApiError");
 const { errorHandler, errorConverter } = require("./src/middlewares/error");
+const { setAuthInfo } = require("./src/middlewares/auth");
 
 const port = process.env.PORT || 5555;
 const app = express();
@@ -23,6 +24,8 @@ app.use(express.json());
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 
+// Set authorization information into IDENTITY
+app.use(setAuthInfo);
 // v1 api routes
 app.use("/v1", routes);
 
