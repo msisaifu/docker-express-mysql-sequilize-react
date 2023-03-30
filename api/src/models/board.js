@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+// const { BoardList } = require("./index");
 module.exports = (sequelize, DataTypes) => {
   class Board extends Model {
     /**
@@ -8,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Board.hasMany(models.BoardList, {
+        foreignKey: "board_id",
+        as: "board_lists",
+      });
     }
   }
   Board.init(
@@ -22,5 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true,
     }
   );
+
   return Board;
 };

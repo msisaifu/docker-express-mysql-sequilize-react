@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const { Board } = require("../models");
+const { Board, BoardList, Card } = require("../models");
 const ApiError = require("../utils/ApiError");
 
 /**
@@ -16,7 +16,7 @@ const create = async (payload) => {
  * @returns {Promise<QueryResult>}
  */
 const getAll = async () => {
-  return await Board.findAll();
+  return Board.findAll();
 };
 
 /**
@@ -25,7 +25,20 @@ const getAll = async () => {
  * @returns {Promise<Board>}
  */
 const getOne = async (id) => {
-  return Board.findByPk(id);
+  return Board.findByPk(id, {
+    include: [
+      {
+        model: BoardList,
+        as: "board_lists",
+        include: [
+          {
+            model: Card,
+            as: "cards",
+          },
+        ],
+      },
+    ],
+  });
 };
 
 /**
