@@ -19,7 +19,6 @@ function ListItem({ list, dndzone }) {
         dragItem(e, id, dndzone);
       }}
       onDragOver={(e) => {
-        console.log("drag over");
         let id = `list-${list.id}`;
         dragOver(e, id, dndzone);
       }}
@@ -41,6 +40,7 @@ function ListItem({ list, dndzone }) {
         dropItem(e, id, dndzone);
       }}
       id={`list-${list.id}`}
+      type="list"
       draggable="true"
       className="bg-slate-200 min-w-[280px] rounded-md mr-3"
     >

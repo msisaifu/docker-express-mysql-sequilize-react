@@ -34,13 +34,17 @@ export function dropItem(event, drop_element_id, dndzone) {
   event.stopPropagation();
   let lists = dndzone.current.childNodes;
   let srcId = event.dataTransfer.getData("text/plain");
-  if (srcId === drop_element_id) {
-    return;
-  }
   let srcElem = document.getElementById(srcId);
   let targetElem = document.getElementById(drop_element_id);
   let srcContent = srcElem.innerHTML;
   let targetContent = targetElem.innerHTML;
+
+  let srcType = srcElem.getAttribute("type");
+  let targetType = targetElem.getAttribute("type");
+  console.log(targetElem.querySelector(".card"));
+  if (srcId === drop_element_id || srcType != targetType) {
+    return;
+  }
   // lists.forEach(function (item) {
   //   if (srcId == item.id) {
   //     srcElem = item;
