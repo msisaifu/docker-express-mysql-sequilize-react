@@ -14,15 +14,18 @@ To create a new migration, run the following command:
 `cd src`
 `npx sequelize-cli model:generate --name {ModelName} --attributes {field_name1}:string,{field_name2}:string`
 
-###Alter Migrations
+### Alter Migrations
+
 `docker exec -it todo-api sh`
 `npm run migration:generate`
 
-###Running Migrations
+### Running Migrations
+
 `docker exec -it todo-api sh`
 `npm run migrate:up`
 
-###Rollback Migrations
+### Rollback Migrations
+
 `docker exec -it todo-api sh`
 `npm run migrate:undo`
 
