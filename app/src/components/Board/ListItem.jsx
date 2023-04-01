@@ -10,18 +10,32 @@ import Card from "./Card";
 
 function ListItem({ list, dndzone }) {
   const cards = list.cards.map((card, index) => (
-    <Card key={index} card={card} />
+    <Card key={index} card={card} dndzone={dndzone} />
   ));
   return (
     <div
       onDragStart={(e) => {
         let id = `list-${list.id}`;
-        dragItem(e, id);
+        dragItem(e, id, dndzone);
       }}
-      onDragOver={(e) => dragOver(e)}
-      onDragEnter={(e) => dragEnter(e)}
-      onDragLeave={(e) => dragLeave(e)}
-      onDragEnd={(e) => dragEnd(e)}
+      onDragOver={(e) => {
+        console.log("drag over");
+        let id = `list-${list.id}`;
+        dragOver(e, id, dndzone);
+      }}
+      onDragEnter={(e) => {
+        console.log("drag enter");
+        let id = `list-${list.id}`;
+        dragEnter(e, id, dndzone);
+      }}
+      onDragLeave={(e) => {
+        let id = `list-${list.id}`;
+        dragLeave(e, id, dndzone);
+      }}
+      onDragEnd={(e) => {
+        let id = `list-${list.id}`;
+        dragEnd(e, id, dndzone);
+      }}
       onDrop={(e) => {
         let id = `list-${list.id}`;
         dropItem(e, id, dndzone);

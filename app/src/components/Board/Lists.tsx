@@ -8,9 +8,11 @@ function List() {
       title: "Todo",
       cards: [
         {
+          id: 1,
           title: "Todo 1",
         },
         {
+          id: 2,
           title: "Todo 2",
         },
       ],
@@ -20,6 +22,7 @@ function List() {
       title: "In progress",
       cards: [
         {
+          id: 3,
           title: "progress 1",
         },
         // {
