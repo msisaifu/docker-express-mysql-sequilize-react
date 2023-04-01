@@ -1,10 +1,13 @@
 import { useState } from "react";
-import Container from "../../components/App/Container";
+import Layout from "../../components/Layout/Layout";
+import Lists from "../../components/Board/Lists";
 
 const Board = () => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
-      <Container />
+      <Layout>
+        <Lists />
+      </Layout>
     </div>
   );
 };
