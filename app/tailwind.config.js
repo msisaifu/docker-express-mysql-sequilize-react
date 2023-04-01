@@ -9,6 +9,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      opacity: {
+        54: ".54",
+      },
       colors: {
         primary: {
           50: "#eff6ff",
