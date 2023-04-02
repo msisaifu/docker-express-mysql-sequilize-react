@@ -1,3 +1,4 @@
+import AddNewBoard from "./componenet/AddNewBoard";
 const Navbar = () => {
   return (
     <>
@@ -34,17 +35,7 @@ const Navbar = () => {
               </a>
             </div>
             <div className="flex items-center justify-start">
-              <div
-                className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                id="mobile-menu-2"
-              >
-                <button
-                  type="button"
-                  className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2"
-                >
-                  Create a new board
-                </button>
-              </div>
+              <AddNewBoard />
             </div>
             {/* <div className="flex items-center">
               <div className="flex items-center ml-3">

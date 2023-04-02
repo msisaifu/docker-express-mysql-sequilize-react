@@ -1,6 +1,6 @@
 import { useState } from "react";
 import User from "../../models/user";
-import Button from "./Button";
+import Button from "../Button";
 import Toast from "./Toast";
 
 type Props = {

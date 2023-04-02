@@ -1,6 +1,8 @@
 import { createContext } from "react";
 interface AuthContextType {
-  user: object;
+  user: {
+    id: number;
+  };
   setUser: Function;
   onLogout: Function;
 }
