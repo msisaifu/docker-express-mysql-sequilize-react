@@ -16,13 +16,6 @@ function Dropzone({ position }) {
         let dropZone = e.target;
         dropZone.classList.remove("card__dropzone--active");
 
-        // const columnElement = dropZone.closest(".kanban__column");
-        // const columnId = Number(columnElement.dataset.id);
-        // const dropZonesInColumn = Array.from(
-        //   columnElement.querySelectorAll(".kanban__dropzone")
-        // );
-        // const droppedIndex = dropZonesInColumn.indexOf(dropZone);
-
         const itemId = Number(e.dataTransfer.getData("text/plain"));
         const droppedItemElement = document.querySelector(
           `[data-id="card-${itemId}"]`
