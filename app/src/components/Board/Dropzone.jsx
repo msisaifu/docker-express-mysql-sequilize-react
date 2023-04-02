@@ -1,17 +1,24 @@
-function Dropzone({ position }) {
+function Dropzone({ position, type }) {
   return (
     <div
       className="card__dropzone"
       onDragOver={(e) => {
-        e.preventDefault();
-        let elem = e.target;
-        elem.classList.add("card__dropzone--active");
+        if (e.dataTransfer.types.includes(type)) {
+          e.preventDefault();
+          let elem = e.target;
+          elem.classList.add("card__dropzone--active");
+        }
       }}
       onDragLeave={(e) => {
-        let elem = e.target;
-        elem.classList.remove("card__dropzone--active");
+        if (e.dataTransfer.types.includes(type)) {
+          let elem = e.target;
+          elem.classList.remove("card__dropzone--active");
+        }
       }}
       onDrop={(e) => {
+        if (!e.dataTransfer.types.includes(type)) {
+          return;
+        }
         e.preventDefault();
         let dropZone = e.target;
         dropZone.classList.remove("card__dropzone--active");
