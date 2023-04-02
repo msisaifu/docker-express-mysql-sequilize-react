@@ -28,13 +28,8 @@ const Navbar = () => {
                 </svg>
               </button>
               <a href="https://flowbite.com" className="flex ml-2 md:mr-24">
-                <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 mr-3"
-                  alt="FlowBite Logo"
-                />
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                  Flowbite
+                  Todo-App
                 </span>
               </a>
             </div>
@@ -51,7 +46,7 @@ const Navbar = () => {
                 </button>
               </div>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <div className="flex items-center ml-3">
                 <div>
                   <button
@@ -77,13 +72,13 @@ const Navbar = () => {
                       className="text-sm text-gray-900 dark:text-white"
                       role="none"
                     >
-                      Neil Sims
+                      {user.first_name} {user.last_name}
                     </p>
                     <p
                       className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                       role="none"
                     >
-                      neil.sims@flowbite.com
+                      {user.email}
                     </p>
                   </div>
                   <ul className="py-1" role="none">
@@ -92,33 +87,9 @@ const Navbar = () => {
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         role="menuitem"
-                      >
-                        Dashboard
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                        role="menuitem"
-                      >
-                        Settings
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                        role="menuitem"
-                      >
-                        Earnings
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                        role="menuitem"
+                        onClick={() => {
+                          onLogout();
+                        }}
                       >
                         Sign out
                       </a>
@@ -126,7 +97,7 @@ const Navbar = () => {
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>

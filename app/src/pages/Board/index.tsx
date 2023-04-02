@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import Lists from "../../components/Board/Lists";
 
