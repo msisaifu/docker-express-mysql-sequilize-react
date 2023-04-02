@@ -7,7 +7,7 @@ type Props = {
 };
 const AuthProvider = ({ children }: Props) => {
   const navigate = useNavigate();
-  const [user] = useState(LocalStorage.get("user"));
+  const [user, setUser] = useState(LocalStorage.get("user"));
 
   const handleLogout = () => {
     LocalStorage.clear();
@@ -16,6 +16,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const value = {
     user,
+    setUser,
     onLogout: handleLogout,
   };
 

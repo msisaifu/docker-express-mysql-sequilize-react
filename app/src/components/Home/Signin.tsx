@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../models/auth";
 import LocalStorage from "../../services/LocalStorage";
+import AuthContext from "../../auth/AuthContext";
 
 type Props = {
   setView: Function;
@@ -15,6 +16,7 @@ const initialData = {
 const Login = ({ setView }: Props) => {
   const navigate = useNavigate();
   const [data, setData] = useState(initialData);
+  const { setUser } = useContext(AuthContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -29,9 +31,9 @@ const Login = ({ setView }: Props) => {
     Auth.login(data)
       .then((res) => {
         let { user, token } = res;
-
-        LocalStorage.set("user", Object.assign(user, token));
-
+        let user_data = Object.assign(user, token);
+        LocalStorage.set("user", user_data);
+        setUser(user_data);
         navigate("/boards");
       })
       .catch((err) => {

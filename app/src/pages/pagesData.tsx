@@ -17,16 +17,32 @@ const ProtectedRoute = ({ children }: Props) => {
   return children;
 };
 
+const AuthRoute = ({ children }: Props) => {
+  const { user } = useContext(AuthContext);
+
+  if (user) {
+    return <Navigate to="/boards" replace />;
+  }
+
+  return children;
+};
+
 const BoardElem = (
   <ProtectedRoute>
     <Board />
   </ProtectedRoute>
 );
 
+const HomeElem = (
+  <AuthRoute>
+    <Home />
+  </AuthRoute>
+);
+
 const pagesData: routerType[] = [
   {
     path: "/",
-    element: <Home />,
+    element: HomeElem,
     title: "home",
   },
   {
