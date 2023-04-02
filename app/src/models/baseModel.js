@@ -21,6 +21,12 @@ class baseModel {
     return Ajax(this.finalEndpoint(endpoint), this.params);
   }
 
+  create(payload, endpoint) {
+    this.params.body = JSON.stringify(payload);
+    this.params.method = "POST";
+    return Ajax(this.finalEndpoint(endpoint), this.params);
+  }
+
   // getAll(endpoint, params) {
   //   return Net.get((endpoint || this.apiEndpoint) + q);
   // }

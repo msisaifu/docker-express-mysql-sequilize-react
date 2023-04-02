@@ -9,7 +9,12 @@ export function Ajax(endpoint, params) {
       }
       const response = await fetch(endpoint, params);
       const result = await response.json();
-      fulfil(result);
+      let code = response.status;
+      if (code >= 200 && code < 400) {
+        fulfil(result);
+      } else {
+        reject(result);
+      }
     } catch (error) {
       reject(error);
     }
