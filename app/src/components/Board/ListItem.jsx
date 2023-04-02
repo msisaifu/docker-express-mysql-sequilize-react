@@ -10,7 +10,7 @@ function ListItem({ list, dndzone }) {
     <div
       onDragStart={(e) => {
         e.dataTransfer.setData("text", list.id);
-        e.dataTransfer.setData("list_type", list.id);
+        e.dataTransfer.setData("list", list.id);
       }}
       data-id={`list-${list.id}`}
       key={list.id}
@@ -18,13 +18,13 @@ function ListItem({ list, dndzone }) {
       draggable="true"
       className="bg-slate-200 min-w-[280px] rounded-md mr-3 kanban__column"
     >
-      {/* <ColumnDropZone /> */}
+      <Dropzone dropzone="list" />
       <div className="p-2 cursor-pointer">
         <span>
           {list.title} {list.id}
         </span>
         <div className="flex flex-col gap-2 ">
-          <Dropzone type="card_type" />
+          <Dropzone dropzone="card" />
           {cards.length ? cards : null}
         </div>
       </div>

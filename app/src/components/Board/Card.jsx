@@ -6,7 +6,7 @@ function Card({ card, dndzone }) {
       <div
         onDragStart={(e) => {
           e.dataTransfer.setData("text", card.id);
-          e.dataTransfer.setData("card_type", card.id);
+          e.dataTransfer.setData("card", card.id);
           e.stopPropagation();
         }}
         data-id={`card-${card.id}`}
@@ -17,7 +17,7 @@ function Card({ card, dndzone }) {
         <div className="p-2 cursor-pointer">
           <span>{card.title}</span>
         </div>
-        <Dropzone position={card.id} type="card_type" />
+        <Dropzone position={card.id} dropzone="card" />
       </div>
     </>
   );

@@ -1,27 +1,27 @@
-function Dropzone({ position, type }) {
+function Dropzone({ position, dropzone }) {
   return (
     <div
-      className="card__dropzone"
+      className={`dropzone`}
       onDragOver={(e) => {
-        if (e.dataTransfer.types.includes(type)) {
+        if (e.dataTransfer.types.includes(dropzone)) {
           e.preventDefault();
           let elem = e.target;
-          elem.classList.add("card__dropzone--active");
+          elem.classList.add(dropzone);
         }
       }}
       onDragLeave={(e) => {
-        if (e.dataTransfer.types.includes(type)) {
+        if (e.dataTransfer.types.includes(dropzone)) {
           let elem = e.target;
-          elem.classList.remove("card__dropzone--active");
+          elem.classList.remove(dropzone);
         }
       }}
       onDrop={(e) => {
-        if (!e.dataTransfer.types.includes(type)) {
+        if (!e.dataTransfer.types.includes(dropzone)) {
           return;
         }
         e.preventDefault();
         let dropZone = e.target;
-        dropZone.classList.remove("card__dropzone--active");
+        dropZone.classList.remove(dropzone);
 
         const itemId = Number(e.dataTransfer.getData("text/plain"));
         const droppedItemElement = document.querySelector(
