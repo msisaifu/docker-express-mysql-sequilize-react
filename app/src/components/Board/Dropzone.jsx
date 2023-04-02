@@ -39,13 +39,6 @@ function Dropzone({ position }) {
         }
 
         insertAfter.after(droppedItemElement);
-
-        // const allItems = document.querySelectorAll(".card__item");
-        // allItems.forEach((el) => {
-        //   if (el.firstChild === null) {
-        //     el.remove();
-        //   }
-        // });
       }}
     ></div>
   );
