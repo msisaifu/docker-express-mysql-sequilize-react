@@ -15,6 +15,10 @@ function List() {
           id: 2,
           title: "Todo 2",
         },
+        {
+          id: 3,
+          title: "Todo 3",
+        },
       ],
     },
     {
@@ -22,7 +26,7 @@ function List() {
       title: "In progress",
       cards: [
         {
-          id: 3,
+          id: 4,
           title: "progress 1",
         },
         // {

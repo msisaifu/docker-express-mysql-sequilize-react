@@ -1,12 +1,6 @@
-import {
-  dragEnd,
-  dragEnter,
-  dragItem,
-  dragLeave,
-  dragOver,
-  dropItem,
-} from "./../../utils/dnd";
 import Card from "./Card";
+import Dropzone from "./Dropzone";
+// import ColumnDropZone from "./ColumnDropZone";
 
 function ListItem({ list, dndzone }) {
   const cards = list.cards.map((card, index) => (
@@ -15,42 +9,23 @@ function ListItem({ list, dndzone }) {
   return (
     <div
       onDragStart={(e) => {
-        let id = `list-${list.id}`;
-        dragItem(e, id, dndzone);
+        e.dataTransfer.setData("text", list.id);
       }}
-      onDragOver={(e) => {
-        let id = `list-${list.id}`;
-        dragOver(e, id, dndzone);
-      }}
-      onDragEnter={(e) => {
-        console.log("drag enter");
-        let id = `list-${list.id}`;
-        dragEnter(e, id, dndzone);
-      }}
-      onDragLeave={(e) => {
-        let id = `list-${list.id}`;
-        dragLeave(e, id, dndzone);
-      }}
-      onDragEnd={(e) => {
-        let id = `list-${list.id}`;
-        dragEnd(e, id, dndzone);
-      }}
-      onDrop={(e) => {
-        let id = `list-${list.id}`;
-        dropItem(e, id, dndzone);
-      }}
-      id={`list-${list.id}`}
+      data-id={`list-${list.id}`}
+      key={list.id}
       type="list"
       draggable="true"
-      className="bg-slate-200 min-w-[280px] rounded-md mr-3"
+      className="bg-slate-200 min-w-[280px] rounded-md mr-3 kanban__column"
     >
+      {/* <ColumnDropZone /> */}
       <div className="p-2 cursor-pointer">
         <span>
           {list.title} {list.id}
         </span>
-        {cards.length ? (
-          <div className="mt-2 flex flex-col gap-2">{cards}</div>
-        ) : null}
+        <div className="flex flex-col gap-2 ">
+          <Dropzone />
+          {cards.length ? cards : null}
+        </div>
       </div>
     </div>
   );
