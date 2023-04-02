@@ -1,9 +1,11 @@
 const Joi = require("joi");
 
 const create = {
-  body: Joi.object().keys({
-    name: Joi.string().required(),
-  }),
+  body: Joi.object()
+    .keys({
+      name: Joi.string().required(),
+    })
+    .options({ allowUnknown: true }),
 };
 
 const getAll = {
