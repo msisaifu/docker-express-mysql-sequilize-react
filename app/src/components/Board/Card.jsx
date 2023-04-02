@@ -10,7 +10,6 @@ function Card({ card, dndzone }) {
           e.stopPropagation();
         }}
         data-id={`card-${card.id}`}
-        type="card"
         draggable="true"
         className="bg-white rounded-md w-full card__item"
       >

@@ -13,10 +13,8 @@ function ListItem({ list, dndzone }) {
         e.dataTransfer.setData("list", list.id);
       }}
       data-id={`list-${list.id}`}
-      key={list.id}
-      type="list"
       draggable="true"
-      className="bg-slate-200 min-w-[280px] rounded-md mr-3 kanban__column"
+      className="bg-slate-200 min-w-[280px] rounded-md mr-3 list__item"
     >
       <Dropzone dropzone="list" />
       <div className="p-2 cursor-pointer">

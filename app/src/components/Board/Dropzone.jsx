@@ -19,26 +19,56 @@ function Dropzone({ position, dropzone }) {
         if (!e.dataTransfer.types.includes(dropzone)) {
           return;
         }
-        e.preventDefault();
-        let dropZone = e.target;
-        dropZone.classList.remove(dropzone);
+        if (dropzone == "card") {
+          e.preventDefault();
+          let dropZone = e.target;
+          dropZone.classList.remove(dropzone);
 
-        const itemId = Number(e.dataTransfer.getData("text/plain"));
-        const droppedItemElement = document.querySelector(
-          `[data-id="card-${itemId}"]`
-        );
+          const cardId = Number(e.dataTransfer.getData("text/plain"));
+          const cardElement = document.querySelector(
+            `[data-id="card-${cardId}"]`
+          );
 
-        const insertAfter = dropZone.parentElement.classList.contains(
-          "card__item"
-        )
-          ? dropZone.parentElement
-          : dropZone;
+          const insertAfter = dropZone.parentElement.classList.contains(
+            "card__item"
+          )
+            ? dropZone.parentElement
+            : dropZone;
 
-        if (droppedItemElement.contains(dropZone)) {
-          return;
+          if (cardElement.contains(dropZone)) {
+            return;
+          }
+
+          insertAfter.after(cardElement);
         }
 
-        insertAfter.after(droppedItemElement);
+        if (dropzone == "list") {
+          e.preventDefault();
+          let dropZone = e.target;
+          dropZone.classList.remove(dropzone);
+
+          const listId = Number(e.dataTransfer.getData("text/plain"));
+          const listElement = document.querySelector(
+            `[data-id="list-${listId}"]`
+          );
+
+          const allLists = [...document.querySelectorAll(".list__item")];
+          const targetElement = dropZone.closest(".list__item");
+
+          if (targetElement == listElement) {
+            return;
+          }
+
+          let dropIndex = allLists.indexOf(listElement);
+          let targetIndex = allLists.indexOf(targetElement);
+
+          let elem_position = "afterend";
+          if (dropIndex > targetIndex) {
+            elem_position = "beforebegin";
+          }
+
+          targetElement.insertAdjacentElement(elem_position, listElement);
+        }
       }}
     ></div>
   );
