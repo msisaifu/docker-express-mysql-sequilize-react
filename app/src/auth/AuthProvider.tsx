@@ -11,6 +11,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleLogout = () => {
     LocalStorage.clear();
+    setUser(null);
     navigate("/");
   };
 
