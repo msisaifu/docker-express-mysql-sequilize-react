@@ -32,6 +32,11 @@ class baseModel {
     return Ajax(this.finalEndpoint(endpoint), this.params);
   }
 
+  getOne(id, endpoint) {
+    this.params.method = "GET";
+    return Ajax(this.finalEndpoint(endpoint) + "/" + id, this.params);
+  }
+
   // getAll(endpoint, params) {
   //   return Net.get((endpoint || this.apiEndpoint) + q);
   // }

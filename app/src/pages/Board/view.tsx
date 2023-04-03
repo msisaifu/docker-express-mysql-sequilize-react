@@ -2,19 +2,21 @@ import Layout from "../../components/Layout/Layout";
 import Lists from "../../components/Board/Lists";
 import { useEffect, useState } from "react";
 import BoardModel from "../../models/boards";
+import { useParams } from "react-router-dom";
 
 const Board = () => {
+  const params = useParams();
   const [board, setBoard] = useState([]);
+  let board_id = params.id;
   function load() {
-    // BoardModel.getAll()
-    //   .then((res) => {
-    //     setBoards(res);
-    //     console.log("res", res);
-    //     console.log(boards);
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //   });
+    BoardModel.getOne(board_id)
+      .then((res) => {
+        setBoard(res);
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }
   useEffect(() => {
     load();
