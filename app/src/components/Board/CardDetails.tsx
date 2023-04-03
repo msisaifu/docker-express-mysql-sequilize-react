@@ -1,10 +1,102 @@
+import { useState, useContext } from "react";
 import Button from "../Button";
+import Cards from "../../models/cards";
+import BoardContext from "../../contexts/BoardViewContext";
 
 type Props = {
   showDrawer: boolean;
   setShowDrawer: Function;
+  card: {
+    id: string;
+    title: string;
+    description: string;
+    expiray_date: Date;
+  };
 };
-const CardDetails = ({ showDrawer, setShowDrawer }: Props) => {
+type Board = {
+  [key: string]: any;
+};
+
+const CardDetails = ({ showDrawer, setShowDrawer, card }: Props) => {
+  const { board, setBoard }: Board = useContext(BoardContext);
+  const [data, setData] = useState(card);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setUpdateLoading(true);
+    Cards.update(card.id, data)
+      .then((res) => {
+        setTimeout(() => {
+          let _board = { ...board };
+          let listIndex = board?.board_lists.findIndex(
+            (item: any) => item.id == card.list_id
+          );
+
+          _board.board_lists[listIndex].cards.map((item: any) => {
+            if (item.id === card.id) {
+              item.title = data.title;
+              console.log("found", item);
+            }
+            return item;
+          });
+          console.log(_board);
+          setBoard(_board);
+
+          setUpdateLoading(false);
+          setShowDrawer(false);
+        }, 1000);
+      })
+      .catch(() => {
+        setTimeout(() => {
+          setUpdateLoading(false);
+        }, 1000);
+      });
+  };
+
+  const handleDelete = (id: any) => {
+    setDeleteLoading(true);
+    Cards.delete(id)
+      .then((res) => {
+        setTimeout(() => {
+          let _board = { ...board };
+          let listIndex = board?.board_lists.findIndex(
+            (item: any) => item.id == card.list_id
+          );
+
+          let filter_card = _board.board_lists[listIndex]?.cards?.filter(
+            (item: any) => {
+              console.log(item.id, item.title);
+              console.log(id);
+              console.log(item.id !== id);
+              return item.id !== id;
+            }
+          );
+          _board.board_lists[listIndex].cards = filter_card;
+          setBoard(_board);
+
+          setShowDrawer(false);
+          setDeleteLoading(false);
+        }, 1000);
+      })
+      .catch(() => {
+        setTimeout(() => {
+          setDeleteLoading(false);
+        }, 1000);
+      });
+  };
+
   return (
     <div
       className={`fixed top-0 right-0 z-40 ${
@@ -33,72 +125,87 @@ const CardDetails = ({ showDrawer, setShowDrawer }: Props) => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
             <span className="sr-only">Close menu</span>
           </button>
         </div>
 
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <label
-              htmlFor="email"
+              htmlFor="title"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Email address
+              Title
             </label>
             <input
-              type="email"
-              id="email"
+              type="text"
+              defaultValue={data.title}
+              onChange={handleChange}
+              name="title"
+              id="title"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="john.doe@company.com"
+              placeholder="title"
               required
             />
           </div>
 
           <div>
             <label
-              htmlFor="message"
+              htmlFor="description"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Description
             </label>
             <textarea
-              id="message"
+              id="description"
+              name="description"
+              defaultValue={data.description}
+              onChange={handleChange}
               rows={4}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Write your thoughts here..."
+              placeholder="Description..."
             ></textarea>
           </div>
 
           <div className="mb-6">
             <label
-              htmlFor="email"
+              htmlFor="expiray_date"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Expiration date
             </label>
             <input
               type="date"
-              id="email"
+              id="expiray_date"
+              name="expiray_date"
+              defaultValue={
+                data.expiray_date &&
+                new Date(data.expiray_date)?.toISOString()?.substr(0, 10)
+              }
+              onChange={handleChange}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="john.doe@company.com"
               required
             />
           </div>
 
           <div className="flex justify-between">
             <Button
-              loading={false}
+              loading={updateLoading}
               btn_text="Update"
               classes="bg-[#3b5998] hover:bg-[#3b5998]/90 w-auto"
             />
 
             <Button
-              loading={false}
+              onClick={(e) => {
+                e.preventDefault();
+                handleDelete(card.id);
+              }}
+              loading={deleteLoading}
               btn_text="Delete"
               classes="bg-red-400 hover:bg-red-300 w-auto"
             />

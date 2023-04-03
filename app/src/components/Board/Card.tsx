@@ -6,6 +6,8 @@ type Props = {
   card: {
     id?: number;
     title?: string;
+    description?: string;
+    expiray_date?: string;
   };
 };
 function Card({ card }: Props) {
@@ -27,7 +29,11 @@ function Card({ card }: Props) {
         </div>
         <Dropzone dropzone="card" />
       </div>
-      <CardDetails showDrawer={showDrawer} setShowDrawer={setShowDrawer} />
+      <CardDetails
+        card={card}
+        showDrawer={showDrawer}
+        setShowDrawer={setShowDrawer}
+      />
     </>
   );
 }
