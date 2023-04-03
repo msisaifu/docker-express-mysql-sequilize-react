@@ -18,6 +18,7 @@ module.exports = {
           model: {
             tableName: "Boards",
           },
+          onDelete: "CASCADE",
           key: "id",
         },
         allowNull: false,
