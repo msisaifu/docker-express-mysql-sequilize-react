@@ -24,7 +24,7 @@ const update = {
   }),
   body: Joi.object()
     .keys({
-      title: Joi.string().required(),
+      title: Joi.string(),
       list_id: Joi.required(),
       description: Joi.string(),
     })

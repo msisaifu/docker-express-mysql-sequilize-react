@@ -1,4 +1,24 @@
+import History from "../../models/history";
+import Cards from "../../models/cards";
+
 function Dropzone({ dropzone }) {
+  function save(payload) {
+    Promise.all([
+      History.create(payload),
+      Cards.update(payload.card_id, { list_id: payload.move_to }),
+    ])
+      .then((values) => {
+        console.log(values);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+    History.create(payload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch();
+  }
   return (
     <div
       className={`dropzone`}
@@ -23,6 +43,12 @@ function Dropzone({ dropzone }) {
           e.preventDefault();
           let dropZone = e.target;
           dropZone.classList.remove(dropzone);
+          const listElement = dropZone.closest(".list__item");
+          const toColumnId = listElement.dataset.id?.split("-")[1];
+          const fromColumnId = e.dataTransfer.getData("source_list");
+
+          // onsole.log("columnId", toColumnId);
+          // console.log("fromColumnId", fromColumnId);c
 
           const cardId = Number(e.dataTransfer.getData("text/plain"));
           const cardElement = document.querySelector(
@@ -40,6 +66,12 @@ function Dropzone({ dropzone }) {
           }
 
           insertAfter.after(cardElement);
+
+          save({
+            move_to: toColumnId,
+            move_from: fromColumnId,
+            card_id: cardId,
+          });
         }
 
         if (dropzone == "list") {

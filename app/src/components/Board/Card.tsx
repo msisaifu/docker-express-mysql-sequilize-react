@@ -9,6 +9,7 @@ type Props = {
     title?: string;
     description?: string;
     expiray_date?: string;
+    list_id?: string;
   };
 };
 function Card({ card }: Props) {
@@ -19,6 +20,7 @@ function Card({ card }: Props) {
         onDragStart={(e) => {
           e.dataTransfer.setData("text", `${card.id}`);
           e.dataTransfer.setData("card", `${card.id}`);
+          e.dataTransfer.setData("source_list", `${card.list_id}`);
           e.stopPropagation();
         }}
         data-id={`card-${card.id}`}
