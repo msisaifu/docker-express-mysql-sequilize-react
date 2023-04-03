@@ -13,31 +13,33 @@ const Sidebar = () => {
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
           <div className="flex flex-col items-center gap-2">
             <img
-              class="w-16 h-16 rounded-full"
+              className="w-16 h-16 rounded-full"
               src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
               alt="user photo"
             />
-            <h6 class="text-lg font-bold dark:text-white">
+            <h6 className="text-lg font-bold dark:text-white">
               {user.first_name || ""} {user.last_name || ""}
             </h6>
-            <p class="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {user.email}
+            </p>
             <button
               onClick={onLogout}
               type="button"
-              class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-12 py-2 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2"
+              className="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-12 py-2 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2"
             >
               <svg
                 aria-hidden="true"
-                class="w-6 h-5 mr-2 -ml-1"
+                className="w-6 h-5 mr-2 -ml-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                 ></path>
               </svg>
