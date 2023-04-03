@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const { Board, BoardList, Card } = require("../models");
+const { Board, BoardList, Card, History } = require("../models");
 const ApiError = require("../utils/ApiError");
 
 /**
@@ -34,6 +34,22 @@ const getOne = async (id) => {
           {
             model: Card,
             as: "cards",
+            include: [
+              {
+                model: History,
+                as: "histories",
+                include: [
+                  {
+                    model: BoardList,
+                    as: "to",
+                  },
+                  {
+                    model: BoardList,
+                    as: "from",
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
