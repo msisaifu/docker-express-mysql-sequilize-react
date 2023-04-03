@@ -18,9 +18,10 @@ module.exports = {
           model: {
             tableName: "Boards",
           },
-          onDelete: "CASCADE",
           key: "id",
         },
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION",
         allowNull: false,
       },
       position: {

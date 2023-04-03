@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       BoardList.hasMany(models.Card, {
         foreignKey: "list_id",
         as: "cards",
-        onDelete: "CASCADE",
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION",
       });
       // define association here
     }

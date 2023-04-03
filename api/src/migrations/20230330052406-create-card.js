@@ -29,9 +29,10 @@ module.exports = {
           model: {
             tableName: "BoardLists",
           },
-          onDelete: "CASCADE",
           key: "id",
         },
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION",
         allowNull: false,
       },
       created_at: {

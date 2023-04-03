@@ -26,6 +26,8 @@ module.exports = {
           },
           key: "id",
         },
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION",
         allowNull: false,
       },
       user_agent: {

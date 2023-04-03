@@ -21,6 +21,8 @@ module.exports = {
           },
           key: "id",
         },
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION",
         allowNull: false,
       },
       created_at: {
