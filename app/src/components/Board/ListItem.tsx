@@ -115,7 +115,8 @@ function ListItem({ list }: Props) {
         </div>
 
         <div className="flex flex-col gap-2 ">
-          <Dropzone dropzone="card" />
+          {list && list.id && <Dropzone dropzone="card" />}
+
           {cards?.length ? cards : null}
 
           {list && list.id && <AddNewCard id={list.id} />}
