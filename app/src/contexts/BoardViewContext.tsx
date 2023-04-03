@@ -4,8 +4,8 @@ interface BoardViewContextType {
   setBoard?: Function;
 }
 
-const AuthContext = createContext<BoardViewContextType>(
+const BoardViewContext = createContext<BoardViewContextType>(
   {} as BoardViewContextType
 );
 
-export default AuthContext;
+export default BoardViewContext;

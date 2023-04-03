@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import Button from "../../Button";
-import { useContext } from "react";
 import AuthContext from "./../../../auth/AuthContext";
 import Boards from "../../../models/boards";
+import BoardContext from "../../../contexts/BoardContext";
+
 const addNewBoard = () => {
+  const { boards, setBoards } = useContext(BoardContext);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const board_elem = useRef<HTMLInputElement>(null);
@@ -15,6 +17,7 @@ const addNewBoard = () => {
       .then((res) => {
         setTimeout(() => {
           setLoading(false);
+          setBoards([...boards, res]);
           if (board_elem.current) {
             board_elem.current.value = "";
           }
