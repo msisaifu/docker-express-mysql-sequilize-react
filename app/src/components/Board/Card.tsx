@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { dateDiff } from "./../../utils/date_diff";
+import { dateDiff } from "../../utils/date";
 import Dropzone from "./Dropzone";
 import CardDetails from "./CardDetails";
 type Props = {

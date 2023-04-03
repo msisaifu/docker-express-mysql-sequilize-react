@@ -5,3 +5,11 @@ export function dateDiff(expired_day) {
   const timeDiff = Math.abs(date2.getTime() - date1.getTime());
   return Math.ceil(timeDiff / (1000 * 3600 * 24));
 }
+export function niceDate(date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}

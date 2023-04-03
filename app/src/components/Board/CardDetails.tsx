@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import Button from "../Button";
 import Cards from "../../models/cards";
 import BoardContext from "../../contexts/BoardViewContext";
+import { niceDate } from "../../utils/date";
 
 type Props = {
   showDrawer: boolean;
@@ -128,7 +129,6 @@ const CardDetails = ({ showDrawer, setShowDrawer, card }: Props) => {
             <span className="sr-only">Close menu</span>
           </button>
         </div>
-
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <label
@@ -206,6 +206,14 @@ const CardDetails = ({ showDrawer, setShowDrawer, card }: Props) => {
             />
           </div>
         </form>
+        <ul className="mt-8 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+          {card?.histories?.map((item) => (
+            <li>
+              {card.title}: Has been moved {item.from?.title} to{" "}
+              {item.to?.title} on {niceDate(item.createdAt)}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
