@@ -1,7 +1,7 @@
 import Navbar from "./Nav";
 import Sidebar from "./Sidebar";
 
-const Board = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
@@ -15,4 +15,4 @@ const Board = ({ children }) => {
   );
 };
 
-export default Board;
+export default Layout;
