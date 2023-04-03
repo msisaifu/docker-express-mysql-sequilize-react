@@ -47,7 +47,7 @@ const CardDetails = ({ showDrawer, setShowDrawer, card }: Props) => {
           _board.board_lists[listIndex].cards.map((item: any) => {
             if (item.id === card.id) {
               item.title = data.title;
-              console.log("found", item);
+              item.expiray_date = data.expiray_date;
             }
             return item;
           });
@@ -76,12 +76,7 @@ const CardDetails = ({ showDrawer, setShowDrawer, card }: Props) => {
           );
 
           let filter_card = _board.board_lists[listIndex]?.cards?.filter(
-            (item: any) => {
-              console.log(item.id, item.title);
-              console.log(id);
-              console.log(item.id !== id);
-              return item.id !== id;
-            }
+            (item: any) => item.id !== id
           );
           _board.board_lists[listIndex].cards = filter_card;
           setBoard(_board);
