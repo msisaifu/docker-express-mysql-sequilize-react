@@ -1,4 +1,4 @@
-function Dropzone({ position, dropzone }) {
+function Dropzone({ dropzone }) {
   return (
     <div
       className={`dropzone`}

@@ -1,6 +1,7 @@
 import { routerType } from "../types/router.types";
 import Home from "./Home";
 import Board from "./Board";
+import ViewBoard from "./Board/view";
 import { useContext } from "react";
 import AuthContext from "../auth/AuthContext";
 import { Navigate } from "react-router-dom";
@@ -33,22 +34,33 @@ const BoardElem = (
   </ProtectedRoute>
 );
 
-const HomeElem = (
-  <AuthRoute>
-    <Home />
-  </AuthRoute>
-);
-
 const pagesData: routerType[] = [
   {
     path: "/",
-    element: HomeElem,
+    element: (
+      <AuthRoute>
+        <Home />
+      </AuthRoute>
+    ),
     title: "home",
   },
   {
     path: "/boards",
-    element: BoardElem,
+    element: (
+      <ProtectedRoute>
+        <Board />
+      </ProtectedRoute>
+    ),
     title: "board",
+  },
+  {
+    path: "/boards/:id",
+    element: (
+      <ProtectedRoute>
+        <ViewBoard />
+      </ProtectedRoute>
+    ),
+    title: "board view",
   },
 ];
 

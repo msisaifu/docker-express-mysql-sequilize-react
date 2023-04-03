@@ -1,6 +1,6 @@
 import Dropzone from "./Dropzone";
 
-function Card({ card, dndzone }) {
+function Card({ card }) {
   return (
     <>
       <div
