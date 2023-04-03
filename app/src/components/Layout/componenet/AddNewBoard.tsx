@@ -21,10 +21,10 @@ const addNewBoard = () => {
       .then((res) => {
         setTimeout(() => {
           setLoading(false);
-          setBoards([...boards, res]);
-          if (board_elem.current) {
-            board_elem.current.value = "";
-          }
+          // // setBoards([...boards, res]);
+          // if (board_elem.current) {
+          //   board_elem.current.value = "";
+          // }
         }, 1000);
       })
       .catch((err) => {

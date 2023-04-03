@@ -29,11 +29,13 @@ class baseModel {
 
   getAll(endpoint) {
     this.params.method = "GET";
+    delete this.params["body"];
     return Ajax(this.finalEndpoint(endpoint), this.params);
   }
 
   getOne(id, endpoint) {
     this.params.method = "GET";
+    delete this.params["body"];
     return Ajax(this.finalEndpoint(endpoint) + "/" + id, this.params);
   }
 

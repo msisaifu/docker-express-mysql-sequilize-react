@@ -25,7 +25,7 @@ const Board = () => {
   }
   useEffect(() => {
     load();
-  }, []);
+  }, [board_id]);
 
   const contextValue = {
     board,
