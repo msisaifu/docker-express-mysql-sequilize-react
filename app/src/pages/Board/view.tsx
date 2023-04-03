@@ -16,6 +16,7 @@ const Board = () => {
   function load() {
     BoardModel.getOne(board_id)
       .then((res) => {
+        console.log(res);
         setBoard(res);
       })
       .catch((err) => {

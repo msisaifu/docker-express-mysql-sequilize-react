@@ -4,7 +4,7 @@ const create = {
   body: Joi.object()
     .keys({
       title: Joi.string().required(),
-      list_id: Joi.string().required(),
+      list_id: Joi.required(),
       description: Joi.string(),
     })
     .options({ allowUnknown: true }),
@@ -25,7 +25,7 @@ const update = {
   body: Joi.object()
     .keys({
       title: Joi.string().required(),
-      list_id: Joi.string().required(),
+      list_id: Joi.required(),
       description: Joi.string(),
     })
     .min(1)

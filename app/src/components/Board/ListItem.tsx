@@ -5,6 +5,7 @@ import Dropzone from "./Dropzone";
 import BoardLists from "../../models/board_lists";
 import BoardContext from "./../../contexts/BoardViewContext";
 import { useContext, useState } from "react";
+import AddNewCard from "./AddNewCard";
 
 type Props = {
   list?: {
@@ -116,6 +117,8 @@ function ListItem({ list }: Props) {
         <div className="flex flex-col gap-2 ">
           <Dropzone dropzone="card" />
           {cards?.length ? cards : null}
+
+          {list && list.id && <AddNewCard id={list.id} />}
         </div>
       </div>
     </div>
