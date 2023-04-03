@@ -1,5 +1,24 @@
 # docker-express-mysql-sequilize-react
 
+## Overview
+
+This is a starter project for building web applications with Docker, Express, MySQL, Sequelize and React. This project provides an easy-to-use template for creating scalable and robust web applications.
+
+## Setup
+
+- Clone the repository and rename `.env.example` to `.env`
+- Run `docker-compose up` to start the Docker container.
+
+## Database Setup
+
+- To enter the API shell, run `docker exec -it todo-api sh`
+- Run the migration command with `npm run migrate:up`
+
+## App Setup
+
+- In the app directory, run `npm i` to install dependencies.
+- Run `npm run dev` to start the app. It will be accessible at `http://localhost:5173/`
+
 ## Running the API Shell
 
 To execute the API shell, use the following command:
