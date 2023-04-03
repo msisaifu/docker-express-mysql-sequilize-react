@@ -24,13 +24,26 @@ function ListItem({ list }: Props) {
     >
       <Dropzone dropzone="list" />
       <div className="p-2 cursor-pointer">
-        {list && list.id ? (
-          <span>
-            {list?.title} {list?.id}
-          </span>
-        ) : (
-          <AddNewList />
-        )}
+        <div className="flex justify-between">
+          {list && list.id ? (
+            <span>
+              {list?.title} {list?.id}
+            </span>
+          ) : (
+            <AddNewList />
+          )}
+
+          {list && list.id && (
+            <div>
+              <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                Add
+              </span>
+              <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                Edit
+              </span>
+            </div>
+          )}
+        </div>
 
         <div className="flex flex-col gap-2 ">
           <Dropzone dropzone="card" />
