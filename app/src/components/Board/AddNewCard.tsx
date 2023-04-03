@@ -28,7 +28,11 @@ const AddNewCard = ({ id }: Props) => {
             let listIndex = board?.board_lists.findIndex(
               (item: any) => item.id == id
             );
-            _board["board_lists"][listIndex].cards.push(res);
+            if (_board["board_lists"][listIndex].cards) {
+              _board["board_lists"][listIndex].cards.push(res);
+            } else {
+              _board["board_lists"][listIndex].cards = [res];
+            }
 
             setBoard(_board);
           }
