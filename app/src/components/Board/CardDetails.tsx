@@ -3,16 +3,12 @@ import Button from "../Button";
 import Cards from "../../models/cards";
 import BoardContext from "../../contexts/BoardViewContext";
 import { niceDate } from "../../utils/date";
+import { ICard } from "./../../interface";
 
 type Props = {
   showDrawer: boolean;
   setShowDrawer: Function;
-  card: {
-    id: string;
-    title: string;
-    description: string;
-    expiray_date: Date;
-  };
+  card: ICard;
 };
 type Board = {
   [key: string]: any;
@@ -196,7 +192,7 @@ const CardDetails = ({ showDrawer, setShowDrawer, card }: Props) => {
             />
 
             <Button
-              onClick={(e) => {
+              onClick={(e: any) => {
                 e.preventDefault();
                 handleDelete(card.id);
               }}

@@ -3,14 +3,10 @@ import { createPortal } from "react-dom";
 import { dateDiff } from "../../utils/date";
 import Dropzone from "./Dropzone";
 import CardDetails from "./CardDetails";
+import { ICard } from "./../../interface";
+
 type Props = {
-  card: {
-    id?: number;
-    title?: string;
-    description?: string;
-    expiray_date?: string;
-    list_id?: string;
-  };
+  card: ICard;
 };
 function Card({ card }: Props) {
   const [showDrawer, setShowDrawer] = useState(false);

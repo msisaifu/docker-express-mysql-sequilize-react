@@ -8,7 +8,7 @@ const Button = ({
   btn_text,
   loading = false,
   classes = "bg-blue-700 hover:bg-blue-800",
-  onClick = () => {},
+  onClick,
 }: Props) => {
   return loading ? (
     <button

@@ -9,8 +9,8 @@ import AddNewCard from "./AddNewCard";
 
 type Props = {
   list?: {
-    id?: number;
-    title?: string;
+    id: number;
+    title: string;
     cards?: [];
   };
 };
@@ -64,8 +64,8 @@ function ListItem({ list }: Props) {
         <div className="flex justify-between">
           {editForm && (
             <UpdateList
-              id={list.id}
-              value={list.title}
+              id={list?.id}
+              value={list?.title}
               setEditForm={setEditForm}
             />
           )}

@@ -1,7 +1,11 @@
 import { useContext } from "react";
 import AuthContext from "../../auth/AuthContext";
 import { Link } from "react-router-dom";
-
+interface User {
+  first_name?: string;
+  last_name?: string;
+  email: string;
+}
 const Sidebar = () => {
   const { user, onLogout } = useContext(AuthContext);
   return (
@@ -19,7 +23,7 @@ const Sidebar = () => {
               alt="user photo"
             />
             <h6 className="text-lg font-bold dark:text-white">
-              {user.first_name || ""} {user.last_name || ""}
+              {user?.first_name || ""} {user?.last_name || ""}
             </h6>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {user.email}

@@ -4,8 +4,12 @@ import AuthContext from "./../../../auth/AuthContext";
 import Boards from "../../../models/boards";
 import BoardContext from "../../../contexts/BoardContext";
 
+type Board = {
+  [key: string]: any;
+};
+
 const addNewBoard = () => {
-  const { boards, setBoards } = useContext(BoardContext);
+  const { boards, setBoards }: Board = useContext(BoardContext);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const board_elem = useRef<HTMLInputElement>(null);
