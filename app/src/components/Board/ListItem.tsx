@@ -1,5 +1,6 @@
 import Card from "./Card";
 import AddNewList from "./AddNewList";
+import UpdateList from "./UpdateList";
 import Dropzone from "./Dropzone";
 import BoardLists from "../../models/board_lists";
 import BoardContext from "./../../contexts/BoardViewContext";
@@ -18,6 +19,7 @@ type Board = {
 
 function ListItem({ list }: Props) {
   const [loading, setLoading] = useState(false);
+  const [editForm, setEditForm] = useState(false);
   const { board, setBoard }: Board = useContext(BoardContext);
 
   const cards = list?.cards?.map((card, index) => (
@@ -59,11 +61,26 @@ function ListItem({ list }: Props) {
       <Dropzone dropzone="list" />
       <div className="p-2 cursor-pointer">
         <div className="flex justify-between">
-          {list && list.id ? <span>{list?.title}</span> : <AddNewList />}
+          {editForm && (
+            <UpdateList
+              id={list.id}
+              value={list.title}
+              setEditForm={setEditForm}
+            />
+          )}
 
-          {list && list.id && (
+          {list && list.id ? (
+            <span hidden={editForm}>{list?.title}</span>
+          ) : (
+            <AddNewList />
+          )}
+
+          {!editForm && list && list.id && (
             <div>
-              <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+              <span
+                onClick={() => setEditForm(true)}
+                className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
+              >
                 Edit
               </span>
               <span

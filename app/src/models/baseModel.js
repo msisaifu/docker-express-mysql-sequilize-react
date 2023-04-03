@@ -42,6 +42,12 @@ class baseModel {
     return Ajax(this.finalEndpoint(endpoint) + "/" + id, this.params);
   }
 
+  update(id, payload, endpoint) {
+    this.params.method = "PUT";
+    this.params.body = JSON.stringify(payload);
+    return Ajax(this.finalEndpoint(endpoint) + "/" + id, this.params);
+  }
+
   // getAll(endpoint, params) {
   //   return Net.get((endpoint || this.apiEndpoint) + q);
   // }
