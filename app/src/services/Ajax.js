@@ -1,4 +1,27 @@
 import LocalStorage from "./LocalStorage";
+import baseUrl from "../config/endpoint";
+
+function refreshToken() {
+  const user = LocalStorage.get("user");
+  let endpoint = baseUrl + "/auth/refresh_token";
+  let params = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.access_token}`,
+    },
+    body: JSON.stringify({ refresh_token: user.refresh_token }),
+  };
+  Ajax(endpoint, params)
+    .then((res) => {
+      let { token } = res;
+      let user_data = Object.assign(user, token);
+      LocalStorage.set("user", user_data);
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
+}
 
 export function Ajax(endpoint, params) {
   return new Promise(async (fulfil, reject) => {
@@ -13,7 +36,13 @@ export function Ajax(endpoint, params) {
       if (code >= 200 && code < 400) {
         fulfil(result);
       } else {
-        reject(result);
+        if (code == 419) {
+          if (user_data && user_data.refresh_token) {
+            refreshToken();
+          }
+        } else {
+          reject(result);
+        }
       }
     } catch (error) {
       reject(error);
